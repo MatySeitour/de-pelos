@@ -1,16 +1,11 @@
 import { cn } from "@/lib/cn";
+import { BOOKING_WHATSAPP_URL, navItems } from "@/lib/functions";
 import {
   ArrowUpRightIcon,
-  BadgeDollarSignIcon,
-  icons,
-  ImagesIcon,
   MapPinIcon,
   MenuIcon,
   MessageCircleIcon,
   PawPrintIcon,
-  ScissorsIcon,
-  ShoppingBagIcon,
-  SparklesIcon,
   XIcon,
 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -19,73 +14,46 @@ export function Navigation() {
   const [isMobileNavigationOpen, setIsMobileNavigationOpen] = useState(false);
 
   useEffect(() => {
-    if (!isMobileNavigationOpen) return;
+    const desktopQuery = window.matchMedia("(min-width: 768px)");
+    const closeOnDesktop = (event: MediaQueryListEvent) => {
+      if (event.matches) setIsMobileNavigationOpen(false);
+    };
 
-    const scrollY = window.scrollY;
+    desktopQuery.addEventListener("change", closeOnDesktop);
+    return () => desktopQuery.removeEventListener("change", closeOnDesktop);
+  }, []);
+
+  useEffect(() => {
+    if (!isMobileNavigationOpen) return;
 
     const body = document.body;
     const html = document.documentElement;
-
     const originalBodyOverflow = body.style.overflow;
-    const originalBodyPosition = body.style.position;
-    const originalBodyTop = body.style.top;
-    const originalBodyWidth = body.style.width;
     const originalHtmlOverflow = html.style.overflow;
 
-    body.style.position = "fixed";
-    body.style.top = `-${scrollY}px`;
-    body.style.width = "100%";
     body.style.overflow = "hidden";
     html.style.overflow = "hidden";
 
+    const closeWithEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsMobileNavigationOpen(false);
+    };
+    window.addEventListener("keydown", closeWithEscape);
+
     return () => {
       body.style.overflow = originalBodyOverflow;
-      body.style.position = originalBodyPosition;
-      body.style.top = originalBodyTop;
-      body.style.width = originalBodyWidth;
       html.style.overflow = originalHtmlOverflow;
-
-      window.scrollTo(0, scrollY);
+      window.removeEventListener("keydown", closeWithEscape);
     };
   }, [isMobileNavigationOpen]);
-
-  const navItems = [
-    {
-      name: "Servicios",
-      href: "#",
-      icon: SparklesIcon,
-    },
-    {
-      name: "Cómo trabajamos",
-      href: "#",
-      icon: ScissorsIcon,
-    },
-    {
-      name: "Galería",
-      href: "#",
-      icon: ImagesIcon,
-    },
-    {
-      name: "Petshop",
-      href: "#",
-      icon: ShoppingBagIcon,
-    },
-    {
-      name: "Precios",
-      href: "#",
-      icon: BadgeDollarSignIcon,
-    },
-    {
-      name: "Ubicación",
-      href: "#",
-      icon: MapPinIcon,
-    },
-  ];
   return (
-    <header className="fixed top-0 border-b border-b-neutral/10 z-50 bg-base-100 w-full">
-      <nav className="px-6 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-2 font-heading font-light">
-          DE PELOS
+    <header className="fixed inset-x-0 top-0 z-50 h-16 border-b border-b-neutral/10 bg-base-100">
+      <nav className="flex h-16 items-center justify-between px-6">
+        <div className="flex items-center gap-1 font-heading font-light">
+          <img
+            className="size-10 min-w-12 object-cover"
+            src="/de-pelos-logo.webp"
+          />
+          <span className="translate-y-1">DE PELOS</span>
         </div>
 
         <ul className="md:flex hidden items-center justify-center gap-5">
@@ -94,46 +62,65 @@ export function Navigation() {
               className="text-xs text-neutral/70 hover:text-primary transition-all cursor-pointer"
               key={item.name}
             >
-              {item.name}
+              <a href={item.href}>{item.name}</a>
             </li>
           ))}
         </ul>
 
         <div className="flex items-center gap-2">
-          <div className="font-body font-medium hover:bg-primary/90 transition-all cursor-pointer text-xs py-2 px-4 md:h-8 bg-primary rounded-full text-white flex items-center gap-1.5 justify-center size-9 md:w-fit">
+          <a
+            className="font-body font-medium hover:bg-primary/90 transition-all cursor-pointer text-xs py-2 px-4 md:h-8 bg-primary rounded-full text-white flex items-center gap-1.5 justify-center size-9 md:w-fit"
+            href={BOOKING_WHATSAPP_URL}
+            rel="noreferrer"
+            target="_blank"
+          >
             <MessageCircleIcon className="size-4 min-w-4" />
             <span className="md:inline hidden">Reservar turno</span>
-          </div>
+          </a>
 
-          <div
+          <button
+            aria-controls="mobile-navigation"
+            aria-expanded={isMobileNavigationOpen}
+            aria-label={
+              isMobileNavigationOpen ? "Cerrar navegación" : "Abrir navegación"
+            }
             onClick={() => setIsMobileNavigationOpen((prev) => !prev)}
-            className="overflow-hidden hover:bg-neutral/70 size-9 relative transition-all hover:text-white cursor-pointer rounded-full md:hidden flex justify-center items-center border border-neutral/20 text-neutral/70 p-2"
+            className="relative flex size-9 cursor-pointer items-center justify-center overflow-hidden rounded-full border border-neutral/20 p-2 text-neutral/70 transition-colors hover:bg-neutral/70 hover:text-white md:hidden"
+            type="button"
           >
             <MenuIcon
               className={cn(
-                isMobileNavigationOpen ? "-translate-x-10" : "translate-x-0",
-                "size-5 min-w-5 transition-all absolute",
+                isMobileNavigationOpen
+                  ? "rotate-90 scale-75 opacity-0"
+                  : "rotate-0 scale-100 opacity-100",
+                "absolute size-5 min-w-5 transition-[opacity,transform] duration-200",
               )}
             />
 
             <XIcon
               className={cn(
-                isMobileNavigationOpen ? "translate-x-0" : "translate-x-10",
-                "size-5 min-w-5 transition-all absolute",
+                isMobileNavigationOpen
+                  ? "rotate-0 scale-100 opacity-100"
+                  : "-rotate-90 scale-75 opacity-0",
+                "absolute size-5 min-w-5 transition-[opacity,transform] duration-200",
               )}
             />
-          </div>
+          </button>
         </div>
       </nav>
 
       <article
+        aria-hidden={!isMobileNavigationOpen}
+        id="mobile-navigation"
         className={cn(
-          "fixed top-0 left-0 w-full h-dvh bg-base-100 flex-col p-6",
-          "transition-transform duration-300 top-16",
-          isMobileNavigationOpen ? "translate-x-0 " : "translate-x-full",
+          "fixed inset-x-0 bottom-0 top-16 flex overflow-y-auto overscroll-contain bg-base-100 p-6 md:hidden",
+          "transition-[transform,opacity,visibility] duration-300 ease-out",
+          isMobileNavigationOpen
+            ? "visible translate-x-0 opacity-100"
+            : "invisible translate-x-full opacity-0",
         )}
       >
-        <div className="flex flex-col w-full h-full gap-2 relative">
+        <div className="relative flex min-h-full w-full flex-col gap-2">
           <div className="flex items-center gap-2 tracking-wide font-body font-medium text-primary text-xs">
             <span className="h-0.5 rounded-full w-6 bg-primary " />
             NAVEGACIÓN
@@ -143,19 +130,25 @@ export function Navigation() {
             ¿Qué querés ver?
           </h3>
 
-          <ul className="flex flex-col pt-4 h-full">
+          <ul className="flex flex-1 flex-col pt-4">
             {navItems.map((item) => (
               <li
                 key={item.name}
-                className="flex text-neutral text-2xl  justify-between font-medium font-heading items-center gap-4 border-b border-neutral/15  p-2"
+                className="border-b border-neutral/15"
               >
-                <div className="flex items-center w-full gap-4">
-                  <item.icon className="size-5 min-w-5 text-neutral/30" />
-                  {item.name}
-                </div>
-                <div className="rounded-full p-2 bg-primary/10 text-primary/80 flex justify-center items-center">
-                  <ArrowUpRightIcon className="size-4 min-w-4" />
-                </div>
+                <a
+                  className="flex items-center justify-between gap-4 py-3 font-heading text-xl font-medium text-neutral"
+                  href={item.href}
+                  onClick={() => setIsMobileNavigationOpen(false)}
+                >
+                  <span className="flex items-center gap-4">
+                    <item.icon className="size-5 min-w-5 text-neutral/30" />
+                    {item.name}
+                  </span>
+                  <span className="flex rounded-full bg-primary/10 p-2 text-primary/80">
+                    <ArrowUpRightIcon className="size-4 min-w-4" />
+                  </span>
+                </a>
               </li>
             ))}
           </ul>
@@ -163,11 +156,17 @@ export function Navigation() {
           <span className="size-20 min-w-20 bg-primary/10 -right-2 absolute top-0 rounded-full" />
           <PawPrintIcon className=" size-8 min-w-8 text-primary/20 md:hidden absolute right-1.5 top-5" />
 
-          <div className="-translate-y-16 rounded-lg border border-neutral/20 bg-neutral/10 p-3 flex flex-col gap-2.5">
-            <div className="font-body font-medium hover:bg-primary/90 transition-all w-full cursor-pointer text-xs py-3 px-4  bg-primary rounded-full text-white flex items-center gap-1.5 justify-center size-9">
+          <div className="mt-6 flex flex-col gap-2.5 rounded-lg border border-neutral/20 bg-neutral/10 p-3">
+            <a
+              className="font-body font-medium hover:bg-primary/90 transition-all w-full cursor-pointer text-xs py-3 px-4 bg-primary rounded-full text-white flex items-center gap-1.5 justify-center size-9"
+              href={BOOKING_WHATSAPP_URL}
+              onClick={() => setIsMobileNavigationOpen(false)}
+              rel="noreferrer"
+              target="_blank"
+            >
               <MessageCircleIcon className="size-4 min-w-4" />
               <span>Reservar turno</span>
-            </div>
+            </a>
 
             <div className="flex items-center gap-2 justify-center w-full">
               <MapPinIcon className="size-4 min-w-4 text-primary" />

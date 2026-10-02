@@ -28,8 +28,11 @@ export function Services() {
   ];
 
   return (
-    <section className="w-full py-10 h-full bg-neutral flex justify-center items-center relative">
-      <div className="w-full h-full max-w-7xl flex flex-col gap-8">
+    <section
+      id="services"
+      className="w-full h-full bg-neutral flex justify-center items-center relative"
+    >
+      <div className="w-full py-20 h-full max-w-7xl flex flex-col gap-8">
         <div className="flex items-start justify-center flex-col gap-2 px-6 w-full">
           <span className="tracking-wider font-body font-semibold text-primary text-xs">
             SERVICIOS
@@ -75,7 +78,7 @@ export function Services() {
 
                 <div className="flex items-center gap-1">
                   {service.tags.map((tag, index) => (
-                    <li
+                    <span
                       key={tag}
                       className="text-xs text-secondary uppercase font-medium flex items-center justify-center gap-1"
                     >
@@ -84,7 +87,7 @@ export function Services() {
                       {index !== service.tags.length - 1 && (
                         <span className="size-0.5 rounded-full bg-secondary" />
                       )}
-                    </li>
+                    </span>
                   ))}
                 </div>
 

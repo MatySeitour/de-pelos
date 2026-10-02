@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 900" fill="none">
+  <defs>
+    <g id="paw" fill="#e98563">
+      <ellipse cx="0" cy="9" rx="12" ry="10"/>
+      <ellipse cx="-12" cy="-5" rx="5" ry="7" transform="rotate(-28 -12 -5)"/>
+      <ellipse cx="-4" cy="-12" rx="5" ry="7" transform="rotate(-8 -4 -12)"/>
+      <ellipse cx="6" cy="-12" rx="5" ry="7" transform="rotate(8 6 -12)"/>
+      <ellipse cx="14" cy="-5" rx="5" ry="7" transform="rotate(28 14 -5)"/>
+    </g>
+  </defs>
+
+  <g opacity=".16">
+    <use href="#paw" transform="translate(54 82) rotate(-24) scale(.8)"/>
+    <use href="#paw" transform="translate(214 46) rotate(15) scale(.52)"/>
+    <use href="#paw" transform="translate(445 112) rotate(28) scale(.72)"/>
+    <use href="#paw" transform="translate(338 198) rotate(-14) scale(.48)"/>
+    <use href="#paw" transform="translate(103 255) rotate(18) scale(.62)"/>
+    <use href="#paw" transform="translate(482 318) rotate(-30) scale(.5)"/>
+    <use href="#paw" transform="translate(260 374) rotate(22) scale(.78)"/>
+    <use href="#paw" transform="translate(35 430) rotate(-10) scale(.46)"/>
+    <use href="#paw" transform="translate(414 492) rotate(14) scale(.64)"/>
+    <use href="#paw" transform="translate(165 560) rotate(-27) scale(.54)"/>
+    <use href="#paw" transform="translate(496 620) rotate(21) scale(.76)"/>
+    <use href="#paw" transform="translate(76 682) rotate(30) scale(.7)"/>
+    <use href="#paw" transform="translate(310 740) rotate(-18) scale(.5)"/>
+    <use href="#paw" transform="translate(440 832) rotate(10) scale(.58)"/>
+    <use href="#paw" transform="translate(198 854) rotate(-12) scale(.44)"/>
+  </g>
+
+  <g stroke="#e98563" stroke-linecap="round" stroke-width="3" opacity=".13">
+    <path d="M18 158c42-36 82-38 126-5" stroke-dasharray="9 15"/>
+    <path d="M374 258c45 5 80 31 110 76" stroke-dasharray="8 14"/>
+    <path d="M12 520c38 8 66 27 91 61" stroke-dasharray="7 14"/>
+    <path d="M280 650c47-36 99-39 151-10" stroke-dasharray="10 16"/>
+    <path d="M64 790c35-24 72-27 111-8" stroke-dasharray="8 15"/>
+  </g>
+</svg>

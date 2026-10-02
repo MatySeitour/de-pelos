@@ -4,6 +4,7 @@ import {
   PawPrintIcon,
   StoreIcon,
 } from "lucide-react";
+import { BOOKING_WHATSAPP_URL } from "@/lib/functions";
 
 export function Home() {
   return (
@@ -59,10 +60,15 @@ export function Home() {
         </div>
 
         <div className="flex items-center gap-2 relative md:flex-row flex-col">
-          <div className="font-body md:w-fit w-full hover:bg-primary/90 transition-all cursor-pointer text-xs py-2 px-4 h-9 font-semibold bg-primary rounded-full text-white flex items-center gap-1.5 justify-center">
+          <a
+            className="font-body md:w-fit w-full hover:bg-primary/90 transition-all cursor-pointer text-xs py-2 px-4 h-9 font-semibold bg-primary rounded-full text-white flex items-center gap-1.5 justify-center"
+            href={BOOKING_WHATSAPP_URL}
+            rel="noreferrer"
+            target="_blank"
+          >
             Reservar turno
             <ArrowUpRightIcon className="size-4 min-w-4" />
-          </div>
+          </a>
 
           <div className="font-body md:w-fit w-full text-xs py-2 px-4 h-9 font-bold border hover:bg-neutral/70 hover:text-white transition-all cursor-pointer border-neutral/70 text-neutral/70 rounded-full flex items-center gap-1.5 justify-center">
             Ver servicios
