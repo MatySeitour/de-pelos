@@ -79,18 +79,29 @@
   }
 
   html {
+    width: 100%;
     min-width: 320px;
+    max-width: 100%;
+    overflow-x: hidden;
     background: var(--color-background);
-    scrollbar-gutter: stable;
     scroll-behavior: smooth;
   }
 
   body {
+    width: 100%;
     min-width: 320px;
+    max-width: 100%;
     min-height: 100vh;
     margin: 0;
+    overflow-x: hidden;
     background: var(--color-background);
     color: var(--color-text);
+  }
+
+  #root {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
   }
 
   button,
@@ -111,7 +122,29 @@
   }
 }
 
+@supports (overflow: clip) {
+  html,
+  body,
+  #root {
+    overflow-x: clip;
+  }
+}
+
+@media (min-width: 768px) {
+  html {
+    scrollbar-gutter: stable;
+  }
+}
+
 @layer components {
+  .site-shell > * {
+    min-width: 0;
+  }
+
+  .site-shell > section[id] {
+    scroll-margin-top: 4rem;
+  }
+
   .site-shell > section,
   .site-shell > footer {
     background-image: url('../assets/paw-pattern.svg');

@@ -10,7 +10,7 @@ export function Team() {
     <section className="w-full h-full bg-white py-14 ">
       <div className="w-full h-full justify-center flex items-center py-12 px-6">
         <div className="w-full max-w-7xl justify-center flex items-center md:flex-row flex-col gap-10">
-          <div className="w-96 h-64 bg-base-100 rounded-lg" />
+          <div className="h-64 w-full max-w-96 bg-base-100 rounded-lg" />
 
           <div className="flex flex-col gap-4 md:w-1/2 w-full relative">
             <span className="tracking-wider font-body font-semibold text-primary text-xs">

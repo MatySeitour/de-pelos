@@ -41,7 +41,6 @@ const REQUIRED_FIELDS: FieldName[] = [
   "neutered",
   "vaccinated",
   "firstVisit",
-  "allergy",
   "behavior",
 ];
 const SUBMIT_COOLDOWN = 45_000;
@@ -253,29 +252,55 @@ export function IntakeForm() {
           }}
           onSubmit={handleSubmit}
         >
-          <label className="pointer-events-none absolute -left-[9999px]" aria-hidden="true">
+          <label
+            className="pointer-events-none absolute -left-[9999px]"
+            aria-hidden="true"
+          >
             Sitio web
             <input autoComplete="off" name="website" tabIndex={-1} />
           </label>
 
           <div className="flex flex-col gap-5">
             <div>
-              <h3 className="font-heading text-2xl font-light">Datos del perro</h3>
+              <h3 className="font-heading text-2xl font-light">
+                Datos del perro
+              </h3>
               <p className="text-xs text-neutral/55">
                 Información básica para identificarlo y conocer sus cuidados.
               </p>
               <p className="mt-2 text-[11px] text-neutral/50">
-                <span className="text-red-500">*</span> Todos los campos son obligatorios.
+                <span className="text-red-500">*</span> Todos los campos son
+                obligatorios.
               </p>
             </div>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <TextField error={errors.dogName} label="Nombre del perro" maxLength={60} name="dogName" placeholder="Ej. Mora" />
-              <TextField error={errors.ownerName} label="Nombre del propietario" maxLength={80} name="ownerName" placeholder="Tu nombre y apellido" />
-              <TextField error={errors.breed} label="Raza" maxLength={60} name="breed" placeholder="Ej. Caniche" />
+              <TextField
+                error={errors.dogName}
+                label="Nombre del perro"
+                maxLength={60}
+                name="dogName"
+                placeholder="Ej. Mora"
+              />
+              <TextField
+                error={errors.ownerName}
+                label="Nombre del propietario"
+                maxLength={80}
+                name="ownerName"
+                placeholder="Tu nombre y apellido"
+              />
+              <TextField
+                error={errors.breed}
+                label="Raza"
+                maxLength={60}
+                name="breed"
+                placeholder="Ej. Caniche"
+              />
 
               <label className="flex flex-col gap-2 text-xs font-semibold text-neutral/80">
-                <span>Sexo <span className="text-red-500">*</span></span>
+                <span>
+                  Sexo <span className="text-red-500">*</span>
+                </span>
                 <select
                   aria-describedby={errors.sex ? "sex-error" : undefined}
                   aria-invalid={Boolean(errors.sex)}
@@ -284,28 +309,61 @@ export function IntakeForm() {
                   name="sex"
                   required
                 >
-                  <option value="" disabled>Seleccionar</option>
+                  <option value="" disabled>
+                    Seleccionar
+                  </option>
                   <option value="Macho">Macho</option>
                   <option value="Hembra">Hembra</option>
                 </select>
                 <ErrorMessage id="sex-error" message={errors.sex} />
               </label>
 
-              <TextField error={errors.color} label="Color" maxLength={50} name="color" placeholder="Ej. Blanco" />
-              <TextField error={errors.age} label="Edad" maxLength={30} name="age" placeholder="Ej. 4 años" />
-              <TextField error={errors.weight} label="Peso aproximado" maxLength={30} name="weight" placeholder="Ej. 8 kg" />
-              <YesNoField error={errors.neutered} legend="¿Está castrado?" name="neutered" />
-              <YesNoField error={errors.vaccinated} legend="¿Está vacunado?" name="vaccinated" />
+              <TextField
+                error={errors.color}
+                label="Color"
+                maxLength={50}
+                name="color"
+                placeholder="Ej. Blanco"
+              />
+              <TextField
+                error={errors.age}
+                label="Edad"
+                maxLength={30}
+                name="age"
+                placeholder="Ej. 4 años"
+              />
+              <TextField
+                error={errors.weight}
+                label="Peso aproximado"
+                maxLength={30}
+                name="weight"
+                placeholder="Ej. 8 kg"
+              />
+              <YesNoField
+                error={errors.neutered}
+                legend="¿Está castrado?"
+                name="neutered"
+              />
+              <YesNoField
+                error={errors.vaccinated}
+                legend="¿Está vacunado?"
+                name="vaccinated"
+              />
             </div>
 
-            <YesNoField error={errors.firstVisit} legend="¿Primera vez en la pelu?" name="firstVisit" />
+            <YesNoField
+              error={errors.firstVisit}
+              legend="¿Primera vez en la pelu?"
+              name="firstVisit"
+            />
 
             <TextField
               error={errors.allergy}
               label="Alergia"
               maxLength={160}
               name="allergy"
-              placeholder="Si no tiene, escribí ‘No’"
+              placeholder="Si tiene alguna alergia, contanos cuál."
+              required={false}
             />
 
             <TextAreaField
@@ -369,7 +427,9 @@ export function IntakeForm() {
               disabled={isOpeningWhatsApp}
               type="submit"
             >
-              {isOpeningWhatsApp ? "Abriendo WhatsApp…" : "Enviar ficha por WhatsApp"}
+              {isOpeningWhatsApp
+                ? "Abriendo WhatsApp…"
+                : "Enviar ficha por WhatsApp"}
               <ArrowUpRightIcon className="size-4" />
             </button>
           </div>
@@ -387,18 +447,27 @@ function TextField({
   maxLength,
   name,
   placeholder,
+  required = true,
 }: {
   error?: string;
   label: string;
   maxLength: number;
   name: FieldName;
   placeholder: string;
+  required?: boolean;
 }) {
   const errorId = `${name}-error`;
 
   return (
     <label className="flex flex-col gap-2 text-xs font-semibold text-neutral/80">
-      <span>{label} <span className="text-red-500">*</span></span>
+      <span>
+        {label}{" "}
+        {required ? (
+          <span className="text-red-500">*</span>
+        ) : (
+          <span className="font-normal text-neutral/40">(opcional)</span>
+        )}
+      </span>
       <input
         aria-describedby={error ? errorId : undefined}
         aria-invalid={Boolean(error)}
@@ -406,7 +475,7 @@ function TextField({
         maxLength={maxLength}
         name={name}
         placeholder={placeholder}
-        required
+        required={required}
       />
       <ErrorMessage id={errorId} message={error} />
     </label>

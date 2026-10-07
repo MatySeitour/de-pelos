@@ -24,22 +24,22 @@ export function Home() {
           se adapta al ritmo y las necesidades de tu perro.
         </span>
 
-        <div className="flex md:hidden items-center gap-6 relative w-fit">
-          <div className="flex flex-col items-start text-xs text-neutral/70">
+        <div className="relative grid w-full min-w-0 grid-cols-3 gap-2 md:hidden">
+          <div className="flex min-w-0 flex-col items-start text-xs text-neutral/70">
             <span className="text-2xl text-neutral font-extrabold font-heading">
               10+
             </span>
             años de experiencia
           </div>
 
-          <div className="flex flex-col items-start text-xs text-neutral/70">
+          <div className="flex min-w-0 flex-col items-start text-xs text-neutral/70">
             <span className="text-2xl text-neutral font-extrabold font-heading">
               1 a 1
             </span>
             atención personalizada
           </div>
 
-          <div className="flex flex-col items-start text-xs text-neutral/70">
+          <div className="flex min-w-0 flex-col items-start text-xs text-neutral/70">
             <span className="text-2xl text-neutral font-extrabold font-heading">
               7 días
             </span>
@@ -55,7 +55,7 @@ export function Home() {
 
           <div
             className="h-96 rounded-bl-md rounded-tr-xl
-            [clip-path:path('M0_80C0_35_35_0_80_0H365C395_0_415_20_415_50V300C415_345_380_380_335_380H35C15_380_0_365_0_340Z')] w-96 bg-neutral/40"
+            [clip-path:path('M0_80C0_35_35_0_80_0H365C395_0_415_20_415_50V300C415_345_380_380_335_380H35C15_380_0_365_0_340Z')] w-full max-w-96 bg-neutral/40"
           />
         </div>
 
@@ -70,9 +70,12 @@ export function Home() {
             <ArrowUpRightIcon className="size-4 min-w-4" />
           </a>
 
-          <div className="font-body md:w-fit w-full text-xs py-2 px-4 h-9 font-bold border hover:bg-neutral/70 hover:text-white transition-all cursor-pointer border-neutral/70 text-neutral/70 rounded-full flex items-center gap-1.5 justify-center">
+          <a
+            href="#services"
+            className="font-body md:w-fit w-full text-xs py-2 px-4 h-9 font-bold border hover:bg-neutral/70 hover:text-white transition-all cursor-pointer border-neutral/70 text-neutral/70 rounded-full flex items-center gap-1.5 justify-center"
+          >
             Ver servicios
-          </div>
+          </a>
 
           <div className="font-body md:w-fit w-full hover:bg-info/90 transition-all cursor-pointer text-xs py-2 px-4 h-9 font-semibold bg-info rounded-full text-white flex items-center gap-1.5 justify-center">
             Ver Petshop

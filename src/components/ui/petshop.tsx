@@ -47,18 +47,13 @@ export function Petshop() {
       className="relative flex h-full w-full items-center justify-center overflow-hidden bg-base-100 py-16 md:py-20"
     >
       <div className="flex h-full w-full max-w-7xl flex-col gap-8 px-6">
-        <div className="flex flex-col items-start justify-between gap-3 md:flex-row md:items-end">
-          <div className="flex flex-col gap-2">
-            <span className="font-body text-xs font-semibold tracking-wider text-primary">
-              01 · COLECCIÓN DESTACADA
-            </span>
-            <h2 className="font-heading text-4xl font-light text-balance">
-              Elegidos para una vida más feliz.
-            </h2>
-          </div>
-          <p className="max-w-sm text-sm text-neutral/60 md:text-right">
-            Una grilla clara para recorrer todas las categorías de un vistazo.
-          </p>
+        <div className="flex flex-col gap-2">
+          <span className="font-body text-xs font-semibold tracking-wider text-primary">
+            01 · COLECCIÓN DESTACADA
+          </span>
+          <h2 className="font-heading text-4xl font-light text-balance">
+            Elegidos para una vida más feliz.
+          </h2>
         </div>
 
         <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-5">

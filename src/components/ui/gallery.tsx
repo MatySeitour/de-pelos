@@ -22,19 +22,13 @@ export function Gallery() {
       className="relative flex h-full w-full items-center justify-center overflow-hidden bg-white py-16 md:py-20"
     >
       <div className="flex h-full w-full max-w-7xl flex-col gap-8 px-6">
-        <div className="flex flex-col items-start justify-between gap-3 md:flex-row md:items-end">
-          <div className="flex flex-col gap-2">
-            <span className="font-body text-xs font-semibold tracking-wider text-primary">
-              GALERÍA DE TRABAJOS
-            </span>
-            <h2 className="font-heading text-4xl font-light text-balance">
-              Resultados para sonreír.
-            </h2>
-          </div>
-          <p className="max-w-md text-sm text-neutral/60 md:text-right">
-            Una composición flexible para sumar luego las fotos reales sin
-            romper el ritmo visual.
-          </p>
+        <div className="flex flex-col gap-2">
+          <span className="font-body text-xs font-semibold tracking-wider text-primary">
+            GALERÍA DE TRABAJOS
+          </span>
+          <h2 className="font-heading text-4xl font-light text-balance">
+            Resultados para sonreír.
+          </h2>
         </div>
 
         <div className="grid min-h-[560px] grid-cols-1 gap-3 md:min-h-[430px] md:grid-cols-[1.1fr_1.4fr]">

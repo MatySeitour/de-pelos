@@ -10,19 +10,13 @@ export function Events() {
   return (
     <section className="relative flex h-full w-full items-center justify-center overflow-hidden bg-base-100 py-16 md:py-20">
       <div className="flex h-full w-full max-w-7xl flex-col gap-8 px-6">
-        <div className="flex flex-col items-start justify-between gap-3 md:flex-row md:items-end">
-          <div className="flex flex-col gap-2">
-            <span className="font-body text-xs font-semibold tracking-wider text-primary">
-              MOMENTOS ESPECIALES
-            </span>
-            <h2 className="font-heading text-4xl font-light text-balance">
-              También nos gusta celebrar.
-            </h2>
-          </div>
-          <p className="max-w-md text-sm text-neutral/60 md:text-right">
-            Escenarios, accesorios y fotos temáticas para fechas que merecen un
-            recuerdo.
-          </p>
+        <div className="flex flex-col gap-2">
+          <span className="font-body text-xs font-semibold tracking-wider text-primary">
+            MOMENTOS ESPECIALES
+          </span>
+          <h2 className="font-heading text-4xl font-light text-balance">
+            También nos gusta celebrar.
+          </h2>
         </div>
 
         <ul className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -38,7 +32,10 @@ export function Events() {
                 {event.name}
               </div>
 
-              <div className="min-h-48 flex-1" aria-label={`Espacio para foto de ${event.name}`} />
+              <div
+                className="min-h-48 flex-1"
+                aria-label={`Espacio para foto de ${event.name}`}
+              />
 
               <span className="border-t border-primary/20 px-4 py-3 text-[10px] font-semibold tracking-wider text-primary">
                 PLACEHOLDER · FOTO REAL

@@ -18,7 +18,11 @@ import { Footer } from "./components/ui/footer";
 
 function App() {
   return (
-    <main className={cn("site-shell grid min-h-svh place-items-center")}>
+    <main
+      className={cn(
+        "site-shell grid min-h-svh w-full min-w-0 grid-cols-[minmax(0,1fr)] place-items-center overflow-x-clip",
+      )}
+    >
       <Navigation />
       <Home />
       <Team />

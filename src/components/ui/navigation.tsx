@@ -8,7 +8,7 @@ import {
   PawPrintIcon,
   XIcon,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { type MouseEvent, useEffect, useState } from "react";
 
 export function Navigation() {
   const [isMobileNavigationOpen, setIsMobileNavigationOpen] = useState(false);
@@ -28,11 +28,11 @@ export function Navigation() {
 
     const body = document.body;
     const html = document.documentElement;
-    const originalBodyOverflow = body.style.overflow;
-    const originalHtmlOverflow = html.style.overflow;
+    const originalBodyOverflowY = body.style.overflowY;
+    const originalHtmlOverflowY = html.style.overflowY;
 
-    body.style.overflow = "hidden";
-    html.style.overflow = "hidden";
+    body.style.overflowY = "hidden";
+    html.style.overflowY = "hidden";
 
     const closeWithEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") setIsMobileNavigationOpen(false);
@@ -40,11 +40,35 @@ export function Navigation() {
     window.addEventListener("keydown", closeWithEscape);
 
     return () => {
-      body.style.overflow = originalBodyOverflow;
-      html.style.overflow = originalHtmlOverflow;
+      body.style.overflowY = originalBodyOverflowY;
+      html.style.overflowY = originalHtmlOverflowY;
       window.removeEventListener("keydown", closeWithEscape);
     };
   }, [isMobileNavigationOpen]);
+
+  const handleMobileNavigation = (
+    event: MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    event.preventDefault();
+    setIsMobileNavigationOpen(false);
+
+    window.setTimeout(() => {
+      const target = document.querySelector<HTMLElement>(href);
+      if (!target) return;
+
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      target.scrollIntoView({
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+        block: "start",
+      });
+      window.history.replaceState(null, "", href);
+    }, 0);
+  };
+
   return (
     <header className="fixed inset-x-0 top-0 z-50 h-16 border-b border-b-neutral/10 bg-base-100">
       <nav className="flex h-16 items-center justify-between px-6">
@@ -85,7 +109,7 @@ export function Navigation() {
               isMobileNavigationOpen ? "Cerrar navegación" : "Abrir navegación"
             }
             onClick={() => setIsMobileNavigationOpen((prev) => !prev)}
-            className="relative flex size-9 cursor-pointer items-center justify-center overflow-hidden rounded-full border border-neutral/20 p-2 text-neutral/70 transition-colors hover:bg-neutral/70 hover:text-white md:hidden"
+            className="relative flex size-9 cursor-pointer items-center justify-center overflow-hidden rounded-full border border-neutral/20 bg-transparent p-2 text-neutral/70 transition-colors hover:bg-neutral/70 hover:text-white active:bg-neutral/10 [-webkit-tap-highlight-color:transparent] md:hidden"
             type="button"
           >
             <MenuIcon
@@ -109,15 +133,15 @@ export function Navigation() {
         </div>
       </nav>
 
-      <article
+      <div
         aria-hidden={!isMobileNavigationOpen}
         id="mobile-navigation"
         className={cn(
-          "fixed inset-x-0 bottom-0 top-16 flex overflow-y-auto overscroll-contain bg-base-100 p-6 md:hidden",
-          "transition-[transform,opacity,visibility] duration-300 ease-out",
+          "fixed inset-x-0 bottom-0 top-16 flex overflow-x-hidden overflow-y-auto overscroll-contain bg-base-100 p-6 md:hidden",
+          "transition-[opacity,visibility] duration-200 ease-out will-change-[opacity]",
           isMobileNavigationOpen
-            ? "visible translate-x-0 opacity-100"
-            : "invisible translate-x-full opacity-0",
+            ? "visible opacity-100"
+            : "pointer-events-none invisible opacity-0",
         )}
       >
         <div className="relative flex min-h-full w-full flex-col gap-2">
@@ -139,7 +163,9 @@ export function Navigation() {
                 <a
                   className="flex items-center justify-between gap-4 py-3 font-heading text-xl font-medium text-neutral"
                   href={item.href}
-                  onClick={() => setIsMobileNavigationOpen(false)}
+                  onClick={(event) =>
+                    handleMobileNavigation(event, item.href)
+                  }
                 >
                   <span className="flex items-center gap-4">
                     <item.icon className="size-5 min-w-5 text-neutral/30" />
@@ -179,7 +205,7 @@ export function Navigation() {
             </div>
           </div>
         </div>
-      </article>
+      </div>
     </header>
   );
 }

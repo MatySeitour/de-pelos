@@ -103,6 +103,7 @@ export function buildIntakeWhatsAppMessage(data: IntakeWhatsAppData) {
   ) as IntakeWhatsAppData;
 
   const healthProblem = safe.healthProblem || "No informado";
+  const allergy = safe.allergy || "No informada";
   const note = safe.note || "Sin notas adicionales";
 
   return [
@@ -123,7 +124,7 @@ export function buildIntakeWhatsAppMessage(data: IntakeWhatsAppData) {
     "🩺 *SALUD Y CUIDADOS*",
     `• *Castrado:* ${safe.neutered}`,
     `• *Vacunado:* ${safe.vaccinated}`,
-    `• *Alergias:* ${safe.allergy}`,
+    `• *Alergias:* ${allergy}`,
     `• *Problemas de salud:* ${healthProblem}`,
     `• *Primera vez en la pelu:* ${safe.firstVisit}`,
     "",

@@ -112,7 +112,7 @@ export function Carefoul() {
 
                 <p className="text-neutral/70 text-sm w-full">
                   Productos profesionales, herramientas desinfectadas, cepillos
-                  adecuados y temperatura de secado contralada
+                  adecuados y temperatura de secado controlada.
                 </p>
               </div>
 
